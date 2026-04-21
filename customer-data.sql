@@ -20,3 +20,4 @@ LEFT JOIN group_agg AS GA
 ON U.id = GA.user_id
 
 
+https://console.cloud.google.com/bigquery/settings/user?project=true-bit-421817
