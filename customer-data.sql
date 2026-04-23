@@ -4,12 +4,14 @@ every 24 hours to extract data */
 
 # Aggregate order items data to get number of purchases and last date they purchased an item
 WITH group_agg AS (
-  SELECT user_id, COUNT(user_id) as num_purchases, MAX(created_at) AS last_purchase_date
+  SELECT  user_id, COUNT(user_id) as num_purchases, MAX(created_at) AS last_purchase_date
   FROM `bigquery-public-data.thelook_ecommerce.order_items`
   GROUP BY user_id
 )
 
-SELECT U.id, U.created_at, age, gender, state, city, country, traffic_source, num_purchases,
+SELECT DISTINCT U.id, U.created_at, age, gender, state, city, country, traffic_source,
+# Replace null values with 0
+COALESCE(num_purchases, 0) as num_purchases,
 # Get length of time customer has been with company
 DATE_DIFF(CURRENT_DATE(), DATE(U.created_at), month) AS months_as_customer,
 # Get number of days since last purchase
@@ -18,6 +20,6 @@ FROM `bigquery-public-data.thelook_ecommerce.users` as U
 # Join customer table with agreggated purchase info
 LEFT JOIN group_agg AS GA
 ON U.id = GA.user_id
-
-
-https://console.cloud.google.com/bigquery/settings/user?project=true-bit-421817
+# Exclude rows where user id is null
+WHERE U.id IS NOT NULL
+ORDER BY U.created_at ASC

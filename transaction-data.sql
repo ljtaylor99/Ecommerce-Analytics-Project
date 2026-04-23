@@ -1,7 +1,7 @@
 /* Query will return transaction info about the product odered, geographic info from user, and when it was shipped and delivered. 
 Scheduled to run every 24 hours to extract data*/
 
-SELECT order_id, category, P.name AS product_name, brand, department, ROUND(retail_price,2) AS retail_price,
+SELECT DISTINCT OI.id,order_id, category, P.name AS product_name, brand, department, ROUND(retail_price,2) AS retail_price,
 DC.name AS distribution_center,state,city,country,OI.created_at,shipped_at, delivered_at, returned_at,
 # Calculate how many days it takes for product to arrive
 DATE_DIFF(delivered_at, shipped_at, DAY) AS delivery_time_days,
@@ -19,5 +19,6 @@ ON P.distribution_center_id = DC.id
 # Get customer info
 LEFT JOIN `bigquery-public-data.thelook_ecommerce.users` AS U
 ON OI.user_id = U.id
-WHERE status NOT IN ('Processing')
+# Excludes null values in demographic and product info
+WHERE CONCAT(OI.id,OI.order_id,category,P.name,brand,department,retail_price,DC.name,state,city,country) IS NOT NULL
 ORDER BY OI.created_at ASC
