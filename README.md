@@ -8,3 +8,11 @@ The data source is the BigQuery Public Data Set [thelook_ecommerce](https://cons
 ## Repository Directory 
 - transaction-data.sql - Script to extract transaction data from the public Ecommerce set on BigQuery
 - customer-data.sql - Script to extract customer data from the public Ecommerce set on BigQuery
+
+## Project Progress 
+
+Scheduled queries are set up and are extracting data to use for analysis. Work is currently being done to create Looker dashboards to display pertinent information. Here is the current ideas for possible dashboards:
+
+- Customer Demographics: Total number of customers (filtered by country and city), traffic source (email, web search), customer growth over time.
+- Profit: Total sales (fitered by geography, product category), profit over time.
+- Delivery Status: Number of orders by category (eg. Shipped, Returned etc.), time it takes for a product to be delivered, info about distribution centers. 
