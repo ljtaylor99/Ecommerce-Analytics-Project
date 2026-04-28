@@ -2,7 +2,8 @@
 Scheduled to run every 24 hours to extract data*/
 
 SELECT DISTINCT OI.id,order_id, category, P.name AS product_name, brand, department, ROUND(retail_price,2) AS retail_price,
-DC.name AS distribution_center,state,city,country,OI.created_at,shipped_at, delivered_at, returned_at,
+DC.name AS distribution_center,state,city,country,OI.created_at,shipped_at, delivered_at, returned_at, DC.latitude as DC_long, DC.longitude
+AS DC_lat,
 # Calculate how many days it takes for product to arrive
 DATE_DIFF(delivered_at, shipped_at, DAY) AS delivery_time_days,
 # Put status as incomplete if delivery hasn't been made within 2 months 
