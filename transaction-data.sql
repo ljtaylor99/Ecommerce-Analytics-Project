@@ -15,6 +15,8 @@ SELECT OI.id,order_id, category, P.name AS product_name, brand, department, ROUN
 DC.name AS distribution_center,state,city,country,OI.created_at,shipped_at, delivered_at, returned_at, DC.distribution_center_geom AS DC_geom,
 # Calculate how many days it takes for product to arrive
 DATE_DIFF(delivered_at, shipped_at, DAY) AS delivery_time_days,
+# Calculate how many hours it takes for product to arrive
+DATE_DIFF(delivered_at, shipped_at, HOUR) AS delivery_time_hours,
 # Put status as incomplete if delivery hasn't been made within 2 months 
 CASE 
 WHEN status = 'Shipped' AND DATE_DIFF(CURRENT_DATE(), DATE(shipped_at), MONTH) > 2 THEN 'Incomplete' 
