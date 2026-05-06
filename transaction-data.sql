@@ -11,7 +11,7 @@ HAVING COUNT(*) > 1
 )
 
 
-SELECT OI.id,order_id, category, P.name AS product_name, brand, department, ROUND(retail_price,2) AS retail_price,
+SELECT OI.id,order_id, OI.user_id, category, P.name AS product_name, brand, department, ROUND(retail_price,2) AS retail_price,
 DC.name AS distribution_center,state,city,country,OI.created_at,shipped_at, delivered_at, returned_at, DC.distribution_center_geom AS DC_geom,
 # Calculate how many days it takes for product to arrive
 DATE_DIFF(delivered_at, shipped_at, DAY) AS delivery_time_days,
