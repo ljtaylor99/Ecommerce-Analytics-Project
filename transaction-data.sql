@@ -29,8 +29,8 @@ ON OI.product_id = P.id
 LEFT JOIN `bigquery-public-data.thelook_ecommerce.distribution_centers` AS DC
 ON P.distribution_center_id = DC.id
 # Get customer info
-LEFT JOIN `bigquery-public-data.thelook_ecommerce.users` AS U
-ON OI.user_id = U.id
+LEFT JOIN `true-bit-421817.ecommerce_monitoring.customer-data` AS U
+ON OI.user_id = U.user_id
 # Excludes duplicates null values in demographic and product info
 WHERE (OI.id) NOT IN (SELECT id FROM duplicates) AND CONCAT(OI.id,OI.order_id,category,P.name,brand,department,retail_price,DC.name,state,city,country) IS NOT NULL 
 ORDER BY OI.created_at ASC
