@@ -9,7 +9,11 @@ WITH group_agg AS (
   GROUP BY user_id
 )
 
-SELECT DISTINCT U.id AS user_id, U.created_at, age, gender, state, city, country, traffic_source, U.longitude, U.latitude,
+SELECT DISTINCT U.id AS user_id, U.created_at, age, gender, state, 
+# Fill in null values with not specified
+CASE WHEN 
+city = 'null' THEN 'Not Specified' ELSE city END as city, 
+country, traffic_source, U.longitude, U.latitude,
 # Replace null values with 0
 COALESCE(num_purchases, 0) as num_purchases,
 # Get length of time customer has been with company
