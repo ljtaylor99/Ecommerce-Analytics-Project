@@ -22,9 +22,11 @@ Work is currently being done on Looker dashboards to display information. Here a
 - Profit: Total sales (fitered by geography, product category), profit over time. Average price of an order, average numer of items. Profit broken down by product catgory (treemap on seperate page).
 - Delivery Status: Number of orders by category (eg. Shipped, Returned etc.), time it takes for a product to be delivered, info about distribution centers.
 
-When visualizing data it was discovered that there is some null city values in the datasets. Although langauge is in scheduled queries to filter null values it was not adequetely excluded because the values were a string "null" rather than an actual null value. This type of null spans around 1700 rows.
+When visualizing data it was discovered that there is some null city values in the datasets. Although langauge is in scheduled queries to filter null values it was not adequetely excluded because the values were a string "null" rather than an actual null value. This type of null spans around 1700 rows. 
+
+After consideration it was decided to input the value "Not Specified" in an attempt to perserve rows. Queries have been updated to reflect this change.
 
 ### To Do
 - Figure out how to include finished dashboards on repository (link,embedding).
 - Research example Looker dashboard to get inspiration for organization/layouts.
-- Investigate null city values and determine how to deal with them (dropping values, imputation).
+
